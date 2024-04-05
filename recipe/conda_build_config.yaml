@@ -5,6 +5,6 @@
 rust_compiler:
   - rust
 rust_compiler_version:
-  - 1.76.0.dev20231115
+  - 1.79.0.dev20240328
 MACOSX_DEPLOYMENT_TARGET:
   - 10.12  # [osx and x86_64]
