@@ -9,7 +9,7 @@ fi
 
 echo rustc --version
 
-if [[ "${build_platform}" == "linux-64") ]]; then
+if [[ "${build_platform}" == "linux-64" ]]; then
   # we need to add the generate-import-lib feature since otherwise
   # maturin will expect libpython DSOs at PYO3_CROSS_LIB_DIR
   # which we don't have since we are not able to add python as a host dependency
