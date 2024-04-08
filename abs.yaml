@@ -1,5 +1,4 @@
 upload_channels:
   - sfe1ed40
 channels:
-  - http://staging.continuum.io/prefect/fs/rust-activation-feedstock/pr7/846c808
-  - http://staging.continuum.io/prefect/fs/maturin-feedstock/pr10/b403ea2
+  - http://staging.continuum.io/prefect/fs/rust-activation-feedstock/pr7/0968c13
