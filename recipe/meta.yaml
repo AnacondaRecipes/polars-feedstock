@@ -50,7 +50,6 @@ test:
   requires:
     - pip
     - pytest
-    - hypothesis
 
 about:
   home: https://github.com/pola-rs/polars
