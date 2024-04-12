@@ -15,6 +15,7 @@ build:
   skip: true  # [s390x]
   # skipping windows because missing maturin >=1.3.2 and since win is not a priority for SF
   skip: true  # [win]
+  skip: true  # [not (linux and x86_64)]
 
 requirements:
   build:
