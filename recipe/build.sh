@@ -17,7 +17,7 @@ if [[ "${build_platform}" == "linux-64" ]]; then
       --manifest-path py-polars/Cargo.toml \
       --features "abi3-py38,extension-module,multiple-pymethods,generate-import-lib"
   maturin build --release --strip
-  pip install target/wheels/polars*.whl --target $PREFIX/lib/site-packages --platform linux_x86_64 --no-deps --no-build-isolation
+  pip install target/wheels/polars*.whl --target $PREFIX/lib/site-packages --platform win_amd64 --no-deps --no-build-isolation
 else
   # Run the maturin build via pip which works for direct and
   # cross-compiled builds.
