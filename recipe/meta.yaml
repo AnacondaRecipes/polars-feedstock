@@ -13,6 +13,8 @@ build:
   number: 0
   # no rust nightly compiler for s390x
   skip: true  # [s390x]
+  # skipping windows because missing maturin >=1.3.2 and since win is not a priority for SF
+  skip: true  # [win]
 
 requirements:
   build:
