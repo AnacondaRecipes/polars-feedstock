@@ -50,7 +50,10 @@ test:
   requires:
     - pip
     - pytest
-    - hypothesis
+    - hypothesis >=6.97.4
+    - pyarrow
+    - pandas
+    - boto3
 
 about:
   home: https://github.com/pola-rs/polars
