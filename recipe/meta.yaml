@@ -64,7 +64,7 @@ test:
   commands:
     - pip check
     - python -c "from polars import DataFrame"
-    - conda install -c conda-forge deltalake pyiceberg xlsx2csv
+    - conda install -c conda-forge -y deltalake pyiceberg xlsx2csv
     - pytest py-polars/tests -k "not ({{ tests_to_skip }})" {{ tests_modules_to_ignore }}
   requires:
     - pip
