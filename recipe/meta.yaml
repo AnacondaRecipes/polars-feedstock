@@ -54,7 +54,10 @@ test:
     - pyarrow
     - pandas
     - boto3
-
+    - sqlalchemy
+    - moto
+    - pydantic
+    - zstandard
 about:
   home: https://github.com/pola-rs/polars
   license: MIT
