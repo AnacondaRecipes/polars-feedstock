@@ -61,6 +61,7 @@ test:
   commands:
     - pip check
     - python -c "from polars import DataFrame"
+    - conda install -c conda-forge deltalake pyiceberg xlsx2csv
     - pytest py-polars/tests -k "not ({{ tests_to_skip }})" {{ tests_modules_to_ignore }}
   requires:
     - pip
@@ -90,9 +91,9 @@ test:
     - xlsxwriter
     - aiosqlite
     # from conda-forge
-    - deltalake
-    - pyiceberg
-    - xlsx2csv
+    # - deltalake
+    # - pyiceberg
+    # - xlsx2csv
 about:
   home: https://github.com/pola-rs/polars
   license: MIT
