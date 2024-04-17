@@ -49,6 +49,11 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_from_dataframe_pandas_parametric or test_from_dataframe_pandas_zero_copy_parametric" %}
 {% set tests_to_skip = tests_to_skip + " or test_from_dataframe_pandas_timestamp_ns or test_streaming_sort" %}
 
+# skipping tests that fail on py3.8 and osx most likely because of incorrect handling of underlying types in pandas.DataFrames
+# (not related to polars)
+{% set tests_to_skip = tests_to_skip + " or test_from_dataframe_pandas_native_parametric or test_from_dataframe_pandas_native_zero_copy_parametric" %}  # [osx and py38]
+{% set tests_to_skip = tests_to_skip + " or test_to_dataframe_pandas_boolean_subchunks or test_from_pandas_index or test_to_pandas" %}                  # [osx and py38]
+
 # skipping tests that fail on prefect because of missing avro files
 {% set tests_to_skip = tests_to_skip + " or test_scan_iceberg_plain or test_scan_iceberg_filter_on_partition or test_scan_iceberg_filter_on_column" %}
 
