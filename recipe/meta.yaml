@@ -55,7 +55,7 @@ requirements:
 # skipping tests that fail on prefect because of missing avro files
 {% set tests_to_skip = tests_to_skip + " or test_scan_iceberg_plain or test_scan_iceberg_filter_on_partition or test_scan_iceberg_filter_on_column" %}
 
-# skipping this import test, because it is an upstream issue as documented in 
+# skipping this import test, because it is an upstream issue as documented in https://github.com/pola-rs/polars/issues/14442
 {% set tests_to_skip = tests_to_skip + " or test_polars_import" %}
 
 test:
