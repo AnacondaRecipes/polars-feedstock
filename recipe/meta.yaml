@@ -34,6 +34,21 @@ requirements:
   run:
     - python
     - numpy >=1.16.0
+  # the run_constrained section is based on the optional dependencies in
+  # https://github.com/pola-rs/polars/blob/2db0ba608b223a014bba5e10d7b82505898798ed/py-polars/pyproject.toml#L40
+  # polars documentation also states these dependencies are enabled by the [extra flags](https://docs.pola.rs/user-guide/installation/#feature-flags)
+  run_constrained:
+    - connectorx >=0.3.2
+    - deltalake >=0.14.0
+    - fastexcel >=0.9
+    - hypothesis >=6.97.4
+    - openpyxl >=3.0.0
+    - pyarrow >=7.0.0
+    - hvplot >=0.9.1
+    - pydantic >=2.0.0
+    - pyiceberg >= 0.5.0
+    - pyxlsb >=1.0
+    - xlsx2csv >=0.8.0
 
 # skipping test_delta because of missing fastexcel and ezodf
 {% set tests_modules_to_ignore = " --ignore=py-polars/tests/unit/io/test_spreadsheet.py" %}
