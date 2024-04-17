@@ -10,7 +10,10 @@ maturin build -v --jobs 1 --release --strip --manylinux off --interpreter=%PYTHO
 if errorlevel 1 exit 1
 
 FOR /F "delims=" %%i IN ('dir /s /b target\wheels\*.whl') DO set polars_wheel=%%i
-%PYTHON% -m pip install --ignore-installed --no-deps %polars_wheel% -vv
+%PYTHON% -m pip install --ignore-installed --no-deps --no-build-isolation %polars_wheel% -vv
 if errorlevel 1 exit 1
 
-cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+REM The root level Cargo.toml is part of an incomplete workspace
+REM we need to use the manifest inside the py-polars
+cd py-polars
+cargo-bundle-licenses --format yaml --output ../THIRDPARTY.yml
