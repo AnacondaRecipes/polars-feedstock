@@ -133,3 +133,5 @@ extra:
     - dhirschfeld
     - pavelzw
     - '0xbe7a'
+  skip-lints:
+    - missing_wheel
