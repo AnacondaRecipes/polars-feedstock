@@ -1,4 +1,3 @@
 upload_channels:
   - sfe1ed40
-channels:
-  - http://staging.continuum.io/prefect/fs/hypothesis-feedstock/pr56/ffaa053
+
