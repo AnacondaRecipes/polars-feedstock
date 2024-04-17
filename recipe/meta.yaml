@@ -36,9 +36,6 @@ requirements:
   run:
     - python
     - numpy >=1.16.0
-    - backports.zoneinfo                   # [py<39]
-    - typing_extensions >=4.0.0            # [py<311]
-    - packaging                            # [py>=310]
 
 # skipping test_delta because of missing fastexcel and ezodf
 {% set tests_modules_to_ignore = " --ignore=py-polars/tests/unit/io/test_spreadsheet.py" %}
