@@ -1,5 +1,5 @@
 {% set name = "polars" %}
-{% set version = "1.34.0" %}
+{% set version = "1.38.1" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,22 +7,22 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 5de5f871027db4b11bcf39215a2d6b13b4a80baf8a55c5862d4ebedfd5cd4013
+    sha256: 803a2be5344ef880ad625addfb8f641995cfd777413b08a10de0897345778239
   - url: https://github.com/pola-rs/{{ name }}/archive/refs/tags/py-{{ version }}.tar.gz
-    sha256: 95fe03ed7a497d027f570f782e3d72494c1b9359cefa878b04b2dba2eccbb7c2
+    sha256: c3004449abf0026b892db8100153aa6053ecd0c122917154106f2733aae099b4
     folder: gh
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-32/{{ name }}_runtime_32-{{ version }}.tar.gz
-    sha256: ebe6f865128a0d833f53a3f6828360761ad86d1698bceb22bef9fd999500dc1c
+    sha256: 04f20ed1f5c58771f34296a27029dc755a9e4b1390caeaef8f317e06fdfce2ec
     folder: polars-runtime-32
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-64/{{ name }}_runtime_64-{{ version }}.tar.gz
-    sha256: 3b1ee01f0a236a603b22577cf1d1e1d143a7f3b485550244c7a359c1e0d3849c
+    sha256: ac53eefbad39614806ee9c7ff93564983e1821fb8331dc4b2a7c53bdc0804056
     folder: polars-runtime-64
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-compat/{{ name }}_runtime_compat-{{ version }}.tar.gz
-    sha256: cac32cbee980d22be75acd06fa7235ecadfc33fe0d2da26e83ce8f333e3530f5
+    sha256: 7ae7d98fcddd309a14d194d921fcfba867e84ea792a24c37f981c27cba7d26db
     folder: polars-runtime-compat
 
 build:
-  number: 1
+  number: 0
   skip: True  # [py<39]
 
 requirements:
@@ -41,7 +41,7 @@ outputs:
         - {{ stdlib('c') }}  # [linux]
         - {{ compiler('c') }}  # [linux]
         - {{ compiler('cxx') }}  # [linux]
-        - {{ compiler('rust-nightly') }}
+        - rust-nightly 1.94.0_2026_01_09
         - cargo-auditable
         - cargo-bundle-licenses
       host:
@@ -85,7 +85,7 @@ outputs:
         - {{ stdlib('c') }}  # [linux]
         - {{ compiler('c') }}  # [linux]
         - {{ compiler('cxx') }}  # [linux]
-        - {{ compiler('rust-nightly') }}
+        - rust-nightly 1.94.0_2026_01_09
         - cargo-auditable
         - cargo-bundle-licenses
       host:
@@ -129,7 +129,7 @@ outputs:
         - {{ stdlib('c') }}  # [linux]
         - {{ compiler('c') }}  # [linux]
         - {{ compiler('cxx') }}  # [linux]
-        - {{ compiler('rust-nightly') }}
+        - rust-nightly 1.94.0_2026_01_09
         - cargo-auditable
         - cargo-bundle-licenses
       host:
