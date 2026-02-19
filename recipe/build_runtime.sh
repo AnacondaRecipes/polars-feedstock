@@ -54,8 +54,6 @@ fi
 
 if [[ $target_platform == linux-aarch64 ]]; then
   export JEMALLOC_SYS_WITH_LG_PAGE=16
-elif [[ $target_platform == osx-* ]]; then
-  export POLARS_NO_JEMALLOC=1
 fi
 
 $PYTHON -m pip install . -vv --no-deps --no-build-isolation
