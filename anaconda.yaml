@@ -1,0 +1,8 @@
+anaconda_config_version: 1
+upstream_sources:
+  - pypi:
+      identifier: polars
+    packages:
+      - polars-runtime-32
+      - polars-runtime-64
+      - polars-runtime-compat
