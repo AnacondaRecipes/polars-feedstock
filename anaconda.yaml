@@ -3,6 +3,7 @@ upstream_sources:
   - pypi:
       identifier: polars
     packages:
+      - polars
       - polars-runtime-32
       - polars-runtime-64
       - polars-runtime-compat
