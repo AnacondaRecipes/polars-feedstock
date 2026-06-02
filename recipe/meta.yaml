@@ -1,5 +1,61 @@
 {% set name = "polars" %}
-{% set version = "1.39.0" %}
+{% set version = "1.41.2" %}
+{% set ignore_tests = "--ignore=gh/py-polars/tests/unit/io/test_delta.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_iceberg.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_write.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/database/test_read.py" %}
+{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
+{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
+{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
+{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/meta/test_api.py::test_namespace_warning_on_override" %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-True]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-False]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-True]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-False]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-True]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-False]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-True]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-False]"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_utf8_23241"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_api.py::test_namespace_warning_on_override"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_ds_plugin.py::test_basic_operation"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_polars_import.py::test_polars_import"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_interpolate_by.py::test_interpolate_vs_numpy"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_parquet_schema_correctness"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_exp_log1p"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_parquet.py::test_sink_parquet_arrow_schema_view_types"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_lazyframe.py::test_lazyframe_membership_operator"' %}
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_group_by.py::test_boolean_min_max_agg"' %}  # [win]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_from_series"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_array"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_2D_array_cols_to_jax"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_dict"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_feature_label_dict"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_misc_errors"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_from_series"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_tensor"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dict"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_feature_label_dict"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_2D_array_cols_to_torch"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_with_2D_arrays"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_reorder"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_subset"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_slice"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_multi"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_range"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_dataset_half_precision"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_expr"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_multi"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_errors"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_lit_compatibility"' %}  # [py==314]
+{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_from_torch"' %}  # [py==314]
 
 package:
   name: {{ name|lower }}-split
@@ -7,23 +63,23 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: e63a25fb7682ae660e36067915a7c71a653b17f82308a8eb67a190a80daf0710
+    sha256: 256d6731162371b77f3f29a55eacb8c0fc740ddb1a293a01d2ef5b5393c5c708
   - url: https://github.com/pola-rs/{{ name }}/archive/refs/tags/py-{{ version }}.tar.gz
-    sha256: 0f7b2f37f75f0eef5e954225bdd53156c43dd1104bee3b51829bd63a86c08014
+    sha256: 4459f3ddbde8babb827b140e15920c6e2075959190a6d13428a7aa7ba50d0a95
     folder: gh
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-32/{{ name }}_runtime_32-{{ version }}.tar.gz
-    sha256: f5aabed8c7318fcad5173e83bee385445f54b5f8c83b1ec9eab78bdffa293141
+    sha256: 7af09ec1ab053da2c9669e8d15f809a4083a29be05db57111688b8051062af56
     folder: polars-runtime-32
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-64/{{ name }}_runtime_64-{{ version }}.tar.gz
-    sha256: 4e5768153a56303eb50f5c866789180f639286b7b90f2bfb57e1ec64267ae39e
+    sha256: eaaeb172b3374e4e4caaf508faa89ac1f27e38282b1804ac05eb8359a19e6b0a
     folder: polars-runtime-64
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-compat/{{ name }}_runtime_compat-{{ version }}.tar.gz
-    sha256: 4b6cadd2f54c1b2dc4617a4fe7fbe9cf589edcc2c8a3bd735d6ddeae8e9f6d86
+    sha256: cdd12ca3d79cc9748b6217dc969f8b3a3b282effa1b088aab00595ed86947f09
     folder: polars-runtime-compat
 
 build:
   number: 0
-  skip: True  # [py<310]
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -34,7 +90,7 @@ requirements:
 
 outputs:
   - name: polars-runtime-32
-    script: build_runtime.sh   # [not win]
+    script: build_runtime.sh  # [not win]
     script: build_runtime.bat  # [win]
     requirements:
       build:
@@ -69,16 +125,16 @@ outputs:
         Polars is a blazingly fast DataFrame library for manipulating structured data. The core is written in Rust, and
         available for Python, R and NodeJS.
         Key features:
-          * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
-          * I/O: First class support for all common data storage layers: local, cloud storage & databases.
-          * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
-          * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
-          * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
-          * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
+        * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
+        * I/O: First class support for all common data storage layers: local, cloud storage & databases.
+        * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
+        * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
+        * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
+        * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
       doc_url: https://docs.pola.rs/api/python/stable/reference/index.html
       dev_url: https://github.com/pola-rs/polars
   - name: polars-runtime-64
-    script: build_runtime.sh   # [not win]
+    script: build_runtime.sh  # [not win]
     script: build_runtime.bat  # [win]
     requirements:
       build:
@@ -113,16 +169,16 @@ outputs:
         Polars is a blazingly fast DataFrame library for manipulating structured data. The core is written in Rust, and
         available for Python, R and NodeJS.
         Key features:
-          * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
-          * I/O: First class support for all common data storage layers: local, cloud storage & databases.
-          * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
-          * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
-          * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
-          * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
+        * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
+        * I/O: First class support for all common data storage layers: local, cloud storage & databases.
+        * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
+        * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
+        * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
+        * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
       doc_url: https://docs.pola.rs/api/python/stable/reference/index.html
       dev_url: https://github.com/pola-rs/polars
   - name: polars-runtime-compat
-    script: build_runtime.sh   # [not win]
+    script: build_runtime.sh  # [not win]
     script: build_runtime.bat  # [win]
     requirements:
       build:
@@ -157,16 +213,16 @@ outputs:
         Polars is a blazingly fast DataFrame library for manipulating structured data. The core is written in Rust, and
         available for Python, R and NodeJS.
         Key features:
-          * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
-          * I/O: First class support for all common data storage layers: local, cloud storage & databases.
-          * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
-          * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
-          * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
-          * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
+        * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
+        * I/O: First class support for all common data storage layers: local, cloud storage & databases.
+        * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
+        * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
+        * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
+        * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
       doc_url: https://docs.pola.rs/api/python/stable/reference/index.html
       dev_url: https://github.com/pola-rs/polars
-  - name: {{ name }}  
-    script: build_polars.sh   # [not win]
+  - name: {{ name }}
+    script: build_polars.sh  # [not win]
     script: build_polars.bat  # [win]
     requirements:
       host:
@@ -190,86 +246,27 @@ outputs:
         - great_tables >=0.8.0
         - polars-runtime-64 =={{ version }}
         - polars-runtime-compat =={{ version }}
-
     # ModuleNotFoundError: No module named 'deltalake'
-    {% set ignore_tests = "--ignore=gh/py-polars/tests/unit/io/test_delta.py" %}
     # ModuleNotFoundError: No module named 'pyiceberg'
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_iceberg.py" %}   
     # _ ERROR collecting gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py _
     # import file mismatch:
-    # imported module 'test_utils' has this __file__ attribute: 
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_write.py" %}
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py" %}
+    # imported module 'test_utils' has this __file__ attribute:
     # ModuleNotFoundError: No module named 'kuzu'
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/database/test_read.py" %}
     # ModuleNotFoundError: required package 'fastexcel' not found
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
-
     # Number of modules are missing like xlsx2csv, fastexcel, connectorx
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
-    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %} 
-    # Failed: DID NOT RAISE <class 'UserWarning'>  
-    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}   
-    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/meta/test_api.py::test_namespace_warning_on_override" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-True]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-False]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-True]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-False]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-True]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-False]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-True]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-False]" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_utf8_23241" %} 
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_api.py::test_namespace_warning_on_override" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_ds_plugin.py::test_basic_operation" %}   
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_polars_import.py::test_polars_import" %}
+    # Failed: DID NOT RAISE <class 'UserWarning'>
     # AssertionError: Series are different (values not within tolerance)
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_interpolate_by.py::test_interpolate_vs_numpy" %}
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
     # ModuleNotFoundError: No module named 'azure'
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
     # AssertionError: assert table["a"].type == pa_dtype
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_parquet_schema_correctness" %}
     # AssertionError: DataFrames are different (value mismatch for column "a")
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_exp_log1p" %}
     # AssertionError: assert large_utf8: l...ryview: binary == large_utf8: l...w: binary_view
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_parquet.py::test_sink_parquet_arrow_schema_view_types" %}
     # Failed: DID NOT RAISE <class 'polars.exceptions.PerformanceWarning'>
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_lazyframe.py::test_lazyframe_membership_operator" %}
     # AssertionError: DataFrames are different (dtypes do not match)
     # [left]: [Int32, UInt32, UInt32]
     # [right]: [Int64, UInt32, UInt32]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_group_by.py::test_boolean_min_max_agg" %}  # [win]
     # No jax and pytorch for py314
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_from_series" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_array" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_2D_array_cols_to_jax" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_feature_label_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_misc_errors" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_from_series" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_tensor" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_feature_label_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_2D_array_cols_to_torch" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_with_2D_arrays" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_reorder" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_subset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_slice" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_multi" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_range" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_dataset_half_precision" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_expr" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_multi" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_errors" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_lit_compatibility" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_from_torch" %}  # [py==314]
-    
     test:
       source_files:
         - gh/py-polars/tests
@@ -316,6 +313,15 @@ outputs:
         - xlsxwriter
         - aiosqlite
 
+test:
+  commands:
+    - pip check
+    - pip check
+    - pip check
+    - pip check
+  requires:
+    - pip
+
 about:
   home: https://www.pola.rs
   license: MIT
@@ -326,12 +332,12 @@ about:
     Polars is a blazingly fast DataFrame library for manipulating structured data. The core is written in Rust, and
     available for Python, R and NodeJS.
     Key features:
-      * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
-      * I/O: First class support for all common data storage layers: local, cloud storage & databases.
-      * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
-      * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
-      * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
-      * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
+    * Fast: Written from scratch in Rust, designed close to the machine and without external dependencies.
+    * I/O: First class support for all common data storage layers: local, cloud storage & databases.
+    * Intuitive API: Write your queries the way they were intended. Polars, internally, will determine the most efficient way to execute using its query optimizer.
+    * Out of Core: The streaming API allows you to process your results without requiring all your data to be in memory at the same time
+    * Parallel: Utilities the power of your machine by dividing the workload among the available CPU cores without any additional configuration.
+    * Vectorized Query Engine: Using Apache Arrow, a columnar data format, to process your queries in a vectorized manner and SIMD to optimize CPU usage.
   doc_url: https://docs.pola.rs/api/python/stable/reference/index.html
   dev_url: https://github.com/pola-rs/polars
 
@@ -345,4 +351,4 @@ extra:
     - xhochy
     - dhirschfeld
     - pavelzw
-    - '0xbe7a'
+    - 48762
