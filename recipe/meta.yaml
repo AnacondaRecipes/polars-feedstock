@@ -193,6 +193,7 @@ outputs:
 
     # ModuleNotFoundError: No module named 'deltalake'
     {% set ignore_tests = "--ignore=gh/py-polars/tests/unit/io/test_delta.py" %}
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_delta_deletion_vector.py" %}
     # ModuleNotFoundError: No module named 'pyiceberg'
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_iceberg.py" %}   
     # _ ERROR collecting gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py _
@@ -269,7 +270,7 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_errors" %}  # [py==314]
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_lit_compatibility" %}  # [py==314]
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_from_torch" %}  # [py==314]
-    
+  
     test:
       source_files:
         - gh/py-polars/tests
