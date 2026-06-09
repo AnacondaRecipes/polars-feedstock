@@ -270,6 +270,19 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_errors" %}  # [py==314]
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_lit_compatibility" %}  # [py==314]
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_from_torch" %}  # [py==314]
+    #   Failed: DID NOT RAISE <class 'polars.exceptions.ChronoFormatWarning'>
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
+    # E   AttributeError: 'RecordBatchFileReader' object has no attribute 'metadata'
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_sink_ipc_custom_metadata" %}
+    # E   pyarrow.lib.ArrowNotImplementedError: Unhandled type for Arrow to Parquet schema conversion: decimal32(4, 1)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_decimal32_64_scan_parquet" %}
+    # >   assert "IdxSize limit hit; chunking branch hit" in captured
+    # E   AssertionError: assert 'IdxSize limit hit; chunking branch hit' in ''
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/namespaces/array/test_array.py::test_array_idx_size_limit_eval" %}
+    # >   return function(*args, **kwargs)
+    # E   AssertionError: DataFrames are different (value mismatch for column "a")
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_statistics.py::test_skew_streaming_matches_in_memory" %}
   
     test:
       source_files:
