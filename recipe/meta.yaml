@@ -244,34 +244,7 @@ outputs:
     # [left]: [Int32, UInt32, UInt32]
     # [right]: [Int64, UInt32, UInt32]
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_group_by.py::test_boolean_min_max_agg" %}  # [win]
-    # No jax and pytorch for py314
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_from_series" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_array" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_2D_array_cols_to_jax" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_to_jax_feature_label_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_to_jax.py::test_misc_errors" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_from_series" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_tensor" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_feature_label_dict" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_2D_array_cols_to_torch" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_with_2D_arrays" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_reorder" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_feature_subset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_slice" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_multi" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_dataset_index_range" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_dataset_half_precision" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_expr" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_to_torch_labelled_dataset_multi" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_errors" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_misc_lit_compatibility" %}  # [py==314]
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/ml/test_torch.py::test_from_torch" %}  # [py==314]
     #   Failed: DID NOT RAISE <class 'polars.exceptions.ChronoFormatWarning'>
-    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
     # E   AttributeError: 'RecordBatchFileReader' object has no attribute 'metadata'
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_sink_ipc_custom_metadata" %}
@@ -300,10 +273,8 @@ outputs:
         - flask-cors
         - orjson
         - altair
-        #  pytorch is not available for py314
-        - pytorch  # [py<314]
-        # jax is not available for py314
-        - jax  # [py<314]
+        - pytorch
+        - jax
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
