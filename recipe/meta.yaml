@@ -276,6 +276,8 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-ndjson]" %}
     # FutureWarning not raised here; unrelated to DataFrame correctness
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_show_graph.py::test_show_graph_plan_stage_default_changed" %}
+    # Test drops SystemRoot from subprocess env; breaks hash-randomization init on Windows py3.10
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win and py<311]
 
     test:
       source_files:
