@@ -1,5 +1,5 @@
 {% set name = "polars" %}
-{% set version = "1.44.0" %}
+{% set version = "1.44.2" %}
 
 package:
   name: {{ name|lower }}-split
@@ -7,18 +7,18 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 6cab3691eac679956aa833e7d015e582d6590fd39f3ad707f6c5d4ca89fa0488
+    sha256: 86c8e26b6c2de8c8d344bb910b74dfc47b118ac3fe0f19b44909467990a0b281
   - url: https://github.com/pola-rs/{{ name }}/archive/refs/tags/py-{{ version }}.tar.gz
-    sha256: 606c715163e0bb50e1569fd9a4620870b4744c8b84e2c707cf27a14b215b4b3c
+    sha256: 9790f42bf66d365867757a49d66304864996c70b76d1f51052f7f201fb4f27f6
     folder: gh
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-32/{{ name }}_runtime_32-{{ version }}.tar.gz
-    sha256: 4b39023054a33e52a759cf0d040db81b5f4194d6021458a14d2d830284ea65f7
+    sha256: b84842f7d621aaca7a52e165e19a24f89db45f8aa13744941430218419a14a67
     folder: polars-runtime-32
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-64/{{ name }}_runtime_64-{{ version }}.tar.gz
-    sha256: bdfeab2684602b55d2b76a77565769c29735a8c693ec96b711664f0d0f7ae459
+    sha256: c1d9e77fa50ca67b01f7cd83d8c79bce2626f190e3fd477cf4cabdfed9c963c1
     folder: polars-runtime-64
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-compat/{{ name }}_runtime_compat-{{ version }}.tar.gz
-    sha256: c6308ea33875f6b4014a6a64181eaf81b957f0f3cd379a76c68ad54f31b07909
+    sha256: 0620bc7ca7e32237d7f394c072ba7be2541a400e072c456fb243773af40cf737
     folder: polars-runtime-compat
 
 build:
@@ -188,6 +188,7 @@ outputs:
         - pyiceberg >=0.9.0
         - altair >=5.4.0
         - great_tables >=0.8.0
+        - tzdata  # [win]
         - polars-runtime-64 =={{ version }}
         - polars-runtime-compat =={{ version }}
 
