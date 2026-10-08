@@ -15,6 +15,14 @@ set NONCOMPAT_TUNE_CPU=skylake
 set NONCOMPAT_FEATURES=+sse3,+ssse3,+sse4.1,+sse4.2,+popcnt,+cmpxchg16b,+avx,+avx2,+fma,+bmi1,+bmi2,+lzcnt,+pclmulqdq,+movbe
 set NONCOMPAT_CC_FEATURES=-msse3 -mssse3 -msse4.1 -msse4.2 -mpopcnt -mcx16 -mavx -mavx2 -mfma -mbmi -mbmi2 -mlzcnt -mpclmul -mmovbe
 
+@rem The SIMD flags above are x86_64-only. On win-arm64 they make cc-rs
+@rem misdetect cl.exe as a GNU-style compiler and pass -c/-o, which cl
+@rem rejects, so no object file is produced and the link fails (LNK1181).
+set "arch=x86_64"
+if "%target_platform%"=="win-arm64" set "arch=aarch64"
+if "%PROCESSOR_ARCHITECTURE%"=="ARM64" set "arch=aarch64"
+if "%arch%"=="aarch64" goto skip_cpu_features
+
 if "%PKG_NAME%"=="polars-runtime-compat" (
     set tune_cpu=%COMPAT_TUNE_CPU%
     set features=%COMPAT_FEATURES%
@@ -39,6 +47,7 @@ if "%tune_cpu%"=="" (
     set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
 )
 
+:skip_cpu_features
 maturin build --release
 if %ERRORLEVEL% neq 0 exit %ERRORLEVEL%
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation --find-links=target\wheels

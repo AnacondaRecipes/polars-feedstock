@@ -22,7 +22,7 @@ source:
     folder: polars-runtime-compat
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<310]
 
 requirements:
@@ -38,8 +38,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -82,8 +82,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -126,8 +126,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -297,7 +297,7 @@ outputs:
         - orjson
         - altair
         - pytorch
-        - jax
+        # - jax
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
