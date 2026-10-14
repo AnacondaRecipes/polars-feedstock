@@ -1,64 +1,8 @@
 {% set name = "polars" %}
 {% set version = "2.0.0" %}
-{% set ignore_tests = "--ignore=gh/py-polars/tests/unit/io/test_delta.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_delta_deletion_vector.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_iceberg.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_write.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/database/test_read.py" %}
-{% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
-{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
-{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
-{% set deselect_tests = "--deselect=gh/py-polars/tests/unit/meta/test_api.py::test_namespace_warning_on_override" %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-True]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-False]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-True]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-False]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-True]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-False]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-True]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-False]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_utf8_23241"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_api.py::test_namespace_warning_on_override"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_ds_plugin.py::test_basic_operation"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/test_polars_import.py::test_polars_import"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_interpolate_by.py::test_interpolate_vs_numpy"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_parquet_schema_correctness"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_exp_log1p"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_parquet.py::test_sink_parquet_arrow_schema_view_types"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_lazyframe.py::test_lazyframe_membership_operator"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_group_by.py::test_boolean_min_max_agg"' %}  # [win]
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_sink_ipc_custom_metadata"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_decimal32_64_scan_parquet"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/namespaces/array/test_array.py::test_array_idx_size_limit_eval"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_statistics.py::test_skew_streaming_matches_in_memory"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-parquet]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-ipc]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-csv]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-ndjson]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-parquet]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-ipc]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-csv]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-ndjson]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_sink_metrics_multiple_phases"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-parquet]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-ipc]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-csv]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-ndjson]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-parquet]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-ipc]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-csv]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-ndjson]"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_show_graph.py::test_show_graph_plan_stage_default_changed"' %}
-{% set deselect_tests = 'deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004"' %}  # [win and py<311]
 
 package:
-  name: {{ name|lower }}-split
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
@@ -241,42 +185,100 @@ outputs:
         - xlsx2csv >=0.8.0
         - connectorx >=0.3.2
         - deltalake >=1.0.0,!=1.5.*
-        - pyiceberg >=0.9.0
+        - pyiceberg >=0.12.0
         - altair >=5.4.0
         - great_tables >=0.8.0
         - tzdata  # [win]
         - polars-runtime-64 =={{ version }}
         - polars-runtime-compat =={{ version }}
+    
     # ModuleNotFoundError: No module named 'deltalake'
+    {% set ignore_tests = "--ignore=gh/py-polars/tests/unit/io/test_delta.py" %}
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_delta_deletion_vector.py" %}
     # ModuleNotFoundError: No module named 'pyiceberg'
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_iceberg.py" %}
     # _ ERROR collecting gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py _
     # import file mismatch:
     # imported module 'test_utils' has this __file__ attribute:
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_write.py" %}
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/testing/parametric/strategies/test_utils.py" %}
     # ModuleNotFoundError: No module named 'kuzu'
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/database/test_read.py" %}
     # ModuleNotFoundError: required package 'fastexcel' not found
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
+
     # Number of modules are missing like xlsx2csv, fastexcel, connectorx
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
+    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
     # Failed: DID NOT RAISE <class 'UserWarning'>
+    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
+    {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/meta/test_api.py::test_namespace_warning_on_override" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-True]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create[adbc-False]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-True]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_append_replace[adbc-False]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-True]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_create_quoted_tablename[adbc-False]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-True]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::TestWriteDatabase::test_write_database_errors[adbc-False]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/database/test_write.py::test_write_database_adbc_temporary_table" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_reserved_ascii_23241" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_hive.py::test_hive_decode_utf8_23241" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_api.py::test_namespace_warning_on_override" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_ds_plugin.py::test_basic_operation" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/test_polars_import.py::test_polars_import" %}
     # AssertionError: Series are different (values not within tolerance)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_interpolate_by.py::test_interpolate_vs_numpy" %}
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
     # ModuleNotFoundError: No module named 'azure'
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
     # AssertionError: assert table["a"].type == pa_dtype
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_parquet_schema_correctness" %}
     # AssertionError: DataFrames are different (value mismatch for column "a")
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_exp_log1p" %}
     # AssertionError: assert large_utf8: l...ryview: binary == large_utf8: l...w: binary_view
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_parquet.py::test_sink_parquet_arrow_schema_view_types" %}
     # Failed: DID NOT RAISE <class 'polars.exceptions.PerformanceWarning'>
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_lazyframe.py::test_lazyframe_membership_operator" %}
     # AssertionError: DataFrames are different (dtypes do not match)
     # [left]: [Int32, UInt32, UInt32]
     # [right]: [Int64, UInt32, UInt32]
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_group_by.py::test_boolean_min_max_agg" %}  # [win]
     #   Failed: DID NOT RAISE <class 'polars.exceptions.ChronoFormatWarning'>
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
     # E   AttributeError: 'RecordBatchFileReader' object has no attribute 'metadata'
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_sink_ipc_custom_metadata" %}
     # E   pyarrow.lib.ArrowNotImplementedError: Unhandled type for Arrow to Parquet schema conversion: decimal32(4, 1)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_decimal32_64_scan_parquet" %}
     # >   assert "IdxSize limit hit; chunking branch hit" in captured
     # E   AssertionError: assert 'IdxSize limit hit; chunking branch hit' in ''
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/namespaces/array/test_array.py::test_array_idx_size_limit_eval" %}
     # >   return function(*args, **kwargs)
     # E   AssertionError: DataFrames are different (value mismatch for column "a")
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_statistics.py::test_skew_streaming_matches_in_memory" %}
     # capfd never sees the Rust multi-scan log line, likely nested fd capture under conda-build --test
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-parquet]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-ipc]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-csv]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[True-ndjson]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-parquet]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-ipc]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-csv]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics[False-ndjson]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_sink_metrics_multiple_phases" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-parquet]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-ipc]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-csv]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[True-ndjson]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-parquet]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-ipc]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-csv]" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics[False-ndjson]" %}
     # FutureWarning not raised here; unrelated to DataFrame correctness
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_show_graph.py::test_show_graph_plan_stage_default_changed" %}
     # Test drops SystemRoot from subprocess env; breaks hash-randomization init on Windows py3.10
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win and py<311]
     test:
       source_files:
         - gh/py-polars/tests
@@ -350,4 +352,7 @@ extra:
     - xhochy
     - dhirschfeld
     - pavelzw
-    - 48762
+    - '0xbe7a'
+  skip-lints:
+    - should_use_stdlib
+    - missing_pip_check
