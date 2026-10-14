@@ -231,6 +231,9 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_interpolate_by.py::test_interpolate_vs_numpy" %}
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_basic_operation" %}
+    # AssertionError: assert None is not None (pds.__file__; 'polars_ds' module not installed)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_plugin_cspe" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/interop/test_ds_plugin.py::test_plugin_cse" %}
     # ModuleNotFoundError: No module named 'azure'
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
     # AssertionError: assert table["a"].type == pa_dtype
@@ -286,6 +289,10 @@ outputs:
         - polars
       commands:
         - pip check
+        # botocore InvalidConfigError: Invalid CA bundle (PBP workers export AWS_CA_BUNDLE/REQUESTS_CA_BUNDLE as empty strings)
+        - unset AWS_CA_BUNDLE REQUESTS_CA_BUNDLE  # [not win]
+        - set "AWS_CA_BUNDLE="  # [win]
+        - set "REQUESTS_CA_BUNDLE="  # [win]
         - pytest -v gh/py-polars/tests {{ ignore_tests }} {{ deselect_tests }}
       requires:
         - pip
