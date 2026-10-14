@@ -322,6 +322,7 @@ outputs:
         - tzdata  # [win]
         - xlsxwriter
         - aiosqlite
+        - pylance
 
 about:
   home: https://www.pola.rs
