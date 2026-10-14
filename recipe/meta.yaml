@@ -323,6 +323,7 @@ outputs:
         - xlsxwriter
         - aiosqlite
         - pylance
+        - lancedb
 
 about:
   home: https://www.pola.rs
