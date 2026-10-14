@@ -252,6 +252,10 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/expr/test_exprs.py::test_validate_format_argument_raises_chrono_format_warning" %}
     # E   AttributeError: 'RecordBatchFileReader' object has no attribute 'metadata'
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_sink_ipc_custom_metadata" %}
+    # TypeError: new_file() got an unexpected keyword argument 'metadata' (py310 env pins pytorch 2.5.1 -> arrow-cpp/pyarrow 19; needs pyarrow >=20)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_lazy_ipc.py::test_scan_ipc_ignores_unusable_custom_metadata" %}  # [py<311]
+    # MapType(map<string, int64>) != MapType(map<large_string, int64>) on parquet roundtrip (pyarrow 19 on py310; needs pyarrow >=20)
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/datatypes/test_map.py::test_map_parquet_entries_satisfy_a_map_schema" %}  # [py<311]
     # E   pyarrow.lib.ArrowNotImplementedError: Unhandled type for Arrow to Parquet schema conversion: decimal32(4, 1)
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_parquet.py::test_decimal32_64_scan_parquet" %}
     # >   assert "IdxSize limit hit; chunking branch hit" in captured
