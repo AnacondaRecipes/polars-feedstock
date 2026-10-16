@@ -319,6 +319,9 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_show_graph.py::test_show_graph_plan_stage_default_changed" %}
     # Test drops SystemRoot from subprocess env; breaks hash-randomization init on Windows py3.10
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win and py<311]
+    # Windows opens text files with the locale encoding (cp1252), not UTF-8, and
+    # polars rejects a non-UTF-8 text-mode handle with "file encoding is not UTF-8".
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_json.py::test_json_wrong_input_handle_textio" %}  # [win]
 
     test:
       source_files:
@@ -337,7 +340,7 @@ outputs:
         - orjson
         - altair  # [not (win and arm64 and py<314)]
         - pytorch
-        # - jax
+        - jax  # [not (win and arm64)]
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
