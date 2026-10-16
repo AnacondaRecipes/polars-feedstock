@@ -210,34 +210,6 @@ outputs:
     # ModuleNotFoundError: required package 'fastexcel' not found
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
 
-    # pyarrow has no win-arm64 build (defaults or conda-forge), and these files
-    # import it at module scope, so they fail collection. Ignore them rather than
-    # deselect, and drop the corresponding pyarrow test requirements.
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/constructors/test_constructors.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/dataframe/test_df.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/datatypes/test_categorical.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/datatypes/test_decimal.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/datatypes/test_float.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/datatypes/test_struct.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/datatypes/test_temporal.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/interchange/test_from_dataframe.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/interchange/test_roundtrip.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/interop/test_arrow_stream_error.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/interop/test_interop.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/interop/test_to_pandas.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_collect_batches.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_csv.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_hive.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_ipc.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_lazy_ipc.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_lazy_parquet.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_multiscan.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_parquet.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_pyarrow_dataset.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_sink.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/lazyframe/test_optimizations.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/operations/test_explode.py" %}  # [win and arm64]
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/series/test_series.py" %}  # [win and arm64]
     # jax has no win-arm64 build; this module lazily imports it and is not
     # deselected by the upstream `ci_only` marker (the pyproject.toml config is
     # not copied into the conda test env).
