@@ -215,10 +215,6 @@ outputs:
     # not copied into the conda test env).
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/ml/test_to_jax.py" %}  # [win and arm64]
 
-    # altair only has a win-arm64 build for py314 on defaults; py312/py313 would
-    # otherwise resolve to the ancient noarch altair 4.1.0, which test_plot.py
-    # (module-scope `import altair`) is not compatible with.
-    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/operations/namespaces/test_plot.py" %}  # [win and arm64 and py<314]
     # Number of modules are missing like xlsx2csv, fastexcel, connectorx
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
     {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %}
@@ -321,7 +317,7 @@ outputs:
         - flask
         - flask-cors
         - orjson
-        - altair  # [not (win and arm64 and py<314)]
+        - altair
         - pytorch
         - jax  # [not (win and arm64)]
         - hypothesis >=6.97.4
