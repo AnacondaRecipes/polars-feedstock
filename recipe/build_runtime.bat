@@ -27,15 +27,11 @@ if "%PKG_NAME%"=="polars-runtime-compat" (
     set tune_cpu=%COMPAT_TUNE_CPU%
     set features=%COMPAT_FEATURES%
     set cc_features=%COMPAT_CC_FEATURES%
+    set cfg=--cfg allocator="default"
 ) else (
     set tune_cpu=%NONCOMPAT_TUNE_CPU%
     set features=%NONCOMPAT_FEATURES%
     set cc_features=%NONCOMPAT_CC_FEATURES%
-)
-
-if "%PKG_NAME%"=="polars-runtime-compat" (
-    set cfg=--cfg allocator="default"
-) else (
     set cfg=
 )
 
