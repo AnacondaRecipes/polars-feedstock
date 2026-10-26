@@ -31,13 +31,21 @@ if "%PKG_NAME%"=="polars-runtime-compat" (
     set cfg=
 )
 
-if "%tune_cpu%"=="" (
+if "%target_platform%"=="win-arm64" (
+    set RUSTFLAGS=%cfg%
+) else if "%tune_cpu%"=="" (
     set RUSTFLAGS=-C target-feature=%features% %cfg%
     set CFLAGS=%CFLAGS% %cc_features%
 ) else (
     set RUSTFLAGS=-C target-feature=%features% -Z tune-cpu=%tune_cpu% %cfg%
     set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
 )
+
+REM ethnum 1.5.2 does not compile on rust nightly >= 2026-04-18 (E0512,
+REM TryFromIntError is no longer zero-sized). Upstream avoids this by pinning
+REM nightly-2026-04-01 in rust-toolchain.toml, which conda's rust ignores.
+cargo update --manifest-path py-polars\runtime\%PKG_NAME%\Cargo.toml -p ethnum --precise 1.5.3
+if %ERRORLEVEL% neq 0 exit %ERRORLEVEL%
 
 maturin build --release
 if %ERRORLEVEL% neq 0 exit %ERRORLEVEL%

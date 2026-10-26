@@ -56,6 +56,15 @@ if [[ $target_platform == linux-aarch64 ]]; then
   export JEMALLOC_SYS_WITH_LG_PAGE=16
 fi
 
+
+
+# ethnum 1.5.2 does not compile on rust nightly >= 2026-04-18 (E0512,
+# TryFromIntError is no longer zero-sized). Upstream avoids this by pinning
+# nightly-2026-04-01 in rust-toolchain.toml, which conda's rust ignores.
+cargo update \
+  --manifest-path py-polars/runtime/${PKG_NAME}/Cargo.toml \
+  -p ethnum --precise 1.5.3
+
 $PYTHON -m pip install . -vv --no-deps --no-build-isolation
 
 # The root level Cargo.toml is part of an incomplete workspace

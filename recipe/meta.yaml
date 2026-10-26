@@ -2,7 +2,7 @@
 {% set version = "1.41.2" %}
 
 package:
-  name: {{ name|lower }}-split
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
@@ -22,7 +22,7 @@ source:
     folder: polars-runtime-compat
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<310]
 
 requirements:
@@ -58,7 +58,7 @@ outputs:
       commands:
         - pip check
     about:
-      home: https://www.pola.rs
+      home: https://pola.rs
       license: MIT
       license_family: MIT
       license_file:
@@ -102,7 +102,7 @@ outputs:
       commands:
         - pip check
     about:
-      home: https://www.pola.rs
+      home: https://pola.rs
       license: MIT
       license_family: MIT
       license_file:
@@ -146,7 +146,7 @@ outputs:
       commands:
         - pip check
     about:
-      home: https://www.pola.rs
+      home: https://pola.rs
       license: MIT
       license_family: MIT
       license_file:
@@ -302,7 +302,7 @@ outputs:
         - aiosqlite
 
 about:
-  home: https://www.pola.rs
+  home: https://pola.rs
   license: MIT
   license_family: MIT
   license_file: LICENSE
@@ -331,3 +331,5 @@ extra:
     - dhirschfeld
     - pavelzw
     - '0xbe7a'
+  skip-lints:
+    - should_use_stdlib
