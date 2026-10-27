@@ -44,6 +44,8 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
+        - clang  # [win-arm64]
       host:
         - pip
         - python
@@ -88,6 +90,8 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
+        - clang  # [win-arm64]
       host:
         - pip
         - python
@@ -132,6 +136,8 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
+        - clang  # [win-arm64]
       host:
         - pip
         - python
