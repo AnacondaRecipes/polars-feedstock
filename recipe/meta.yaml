@@ -45,7 +45,7 @@ outputs:
         - cargo-auditable
         - cargo-bundle-licenses
         # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
-        - clang  # [win-arm64]
+        - clang  # [win and arm64]
       host:
         - pip
         - python
@@ -91,7 +91,7 @@ outputs:
         - cargo-auditable
         - cargo-bundle-licenses
         # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
-        - clang  # [win-arm64]
+        - clang  # [win and arm64]
       host:
         - pip
         - python
@@ -137,7 +137,7 @@ outputs:
         - cargo-auditable
         - cargo-bundle-licenses
         # ring 0.17 looks up clang by name on aarch64-pc-windows-msvc
-        - clang  # [win-arm64]
+        - clang  # [win and arm64]
       host:
         - pip
         - python
