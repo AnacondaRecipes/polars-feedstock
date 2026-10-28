@@ -211,6 +211,8 @@ outputs:
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/database/test_read.py" %}
     # ModuleNotFoundError: required package 'fastexcel' not found
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
+    # jax is not on win-arm64; test_to_jax.py imports it when the test runs
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/ml/test_to_jax.py" %}  # [win and arm64]
 
     # Number of modules are missing like xlsx2csv, fastexcel, connectorx
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
@@ -280,7 +282,7 @@ outputs:
         - orjson
         - altair
         - pytorch
-        - jax
+        - jax  # [not (win and arm64)]
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
