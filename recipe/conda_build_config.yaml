@@ -1,5 +1,5 @@
-# aws-lc-sys does not support MSVC cl.exe when targeting aarch64-pc-windows-msvc; 
-# it requires a clang driver.
+# polars' TLS stack uses aws-lc-rs -> aws-lc-sys, which does not support MSVC
+# cl.exe when targeting aarch64-pc-windows-msvc; it requires a clang driver.
 # Use clang on win-arm64 (MSVC remains the compiler everywhere else).
 c_compiler:            # [win and arm64]
   - clang              # [win and arm64]
