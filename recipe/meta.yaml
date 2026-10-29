@@ -1,29 +1,31 @@
 {% set name = "polars" %}
-{% set version = "1.41.2" %}
+{% set version = "1.44.2" %}
 
 package:
-  name: {{ name|lower }}-split
+  name: {{ name }}-split
   version: {{ version }}
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-    sha256: 256d6731162371b77f3f29a55eacb8c0fc740ddb1a293a01d2ef5b5393c5c708
+    sha256: 86c8e26b6c2de8c8d344bb910b74dfc47b118ac3fe0f19b44909467990a0b281
   - url: https://github.com/pola-rs/{{ name }}/archive/refs/tags/py-{{ version }}.tar.gz
-    sha256: 4459f3ddbde8babb827b140e15920c6e2075959190a6d13428a7aa7ba50d0a95
+    sha256: 9790f42bf66d365867757a49d66304864996c70b76d1f51052f7f201fb4f27f6
     folder: gh
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-32/{{ name }}_runtime_32-{{ version }}.tar.gz
-    sha256: 7af09ec1ab053da2c9669e8d15f809a4083a29be05db57111688b8051062af56
+    sha256: b84842f7d621aaca7a52e165e19a24f89db45f8aa13744941430218419a14a67
     folder: polars-runtime-32
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-64/{{ name }}_runtime_64-{{ version }}.tar.gz
-    sha256: eaaeb172b3374e4e4caaf508faa89ac1f27e38282b1804ac05eb8359a19e6b0a
+    sha256: c1d9e77fa50ca67b01f7cd83d8c79bce2626f190e3fd477cf4cabdfed9c963c1
     folder: polars-runtime-64
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}-runtime-compat/{{ name }}_runtime_compat-{{ version }}.tar.gz
-    sha256: cdd12ca3d79cc9748b6217dc969f8b3a3b282effa1b088aab00595ed86947f09
+    sha256: 0620bc7ca7e32237d7f394c072ba7be2541a400e072c456fb243773af40cf737
     folder: polars-runtime-compat
 
 build:
   number: 0
-  skip: true  # [py<310]
+  # Windows ARM64 builds fail in aws-lc-sys due to native ARM64 assembly compilation issues.
+  # This platform is not required for the Snowflake deliverables.
+  skip: true  # [py<310 or (win and arm64)]
 
 requirements:
   host:
@@ -185,7 +187,7 @@ outputs:
         - xlsx2csv >=0.8.0
         - connectorx >=0.3.2
         - deltalake >=1.0.0,!=1.5.*
-        - pyiceberg >=0.7.1
+        - pyiceberg >=0.9.0
         - altair >=5.4.0
         - great_tables >=0.8.0
         - polars-runtime-64 =={{ version }}
@@ -256,6 +258,16 @@ outputs:
     # >   return function(*args, **kwargs)
     # E   AssertionError: DataFrames are different (value mismatch for column "a")
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/operations/test_statistics.py::test_skew_streaming_matches_in_memory" %}
+
+    # Upstream Polars 1.44.2 I/O metrics tests report zero bytes.
+    # Reproduced with the official PyPI wheel.
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_metrics" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_scan.py::test_scan_sink_metrics_multiple_phases" %}
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_sink.py::test_sink_metrics" %}
+
+    # Windows-specific subprocess initialization failure caused by the upstream
+    # test replacing the inherited environment on Python 3.10.
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win and py==310]
   
     test:
       source_files:
@@ -264,7 +276,7 @@ outputs:
         - polars
       commands:
         - pip check
-        - pytest -v gh/py-polars/tests {{ ignore_tests }} {{ deselect_tests }}
+        - pytest -v gh/py-polars/tests {{ ignore_tests }} {{ deselect_tests }} -W error::FutureWarning
       requires:
         - pip
         - pytest
