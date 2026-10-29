@@ -23,9 +23,7 @@ source:
 
 build:
   number: 0
-  # Windows ARM64 builds fail in aws-lc-sys due to native ARM64 assembly compilation issues.
-  # This platform is not required for the Snowflake deliverables.
-  skip: true  # [py<310 or (win and arm64)]
+  skip: true  # [py<310]
 
 requirements:
   host:
