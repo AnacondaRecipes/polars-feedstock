@@ -102,7 +102,7 @@ outputs:
       commands:
         - pip check
     about:
-      home: https://www.pola.rs
+      home: https://pola.rs
       license: MIT
       license_family: MIT
       license_file:
