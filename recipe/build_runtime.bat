@@ -19,24 +19,25 @@ if "%PKG_NAME%"=="polars-runtime-compat" (
     set tune_cpu=%COMPAT_TUNE_CPU%
     set features=%COMPAT_FEATURES%
     set cc_features=%COMPAT_CC_FEATURES%
+    set cfg=--cfg allocator="default"
 ) else (
     set tune_cpu=%NONCOMPAT_TUNE_CPU%
     set features=%NONCOMPAT_FEATURES%
     set cc_features=%NONCOMPAT_CC_FEATURES%
-)
-
-if "%PKG_NAME%"=="polars-runtime-compat" (
-    set cfg=--cfg allocator="default"
-) else (
     set cfg=
 )
 
-if "%tune_cpu%"=="" (
-    set RUSTFLAGS=-C target-feature=%features% %cfg%
-    set CFLAGS=%CFLAGS% %cc_features%
+rem Apply x86-64 CPU flags only on x86-64 Windows targets.
+if /I "%target_platform%"=="win-64" (
+    if "%tune_cpu%"=="" (
+        set RUSTFLAGS=-C target-feature=%features% %cfg%
+        set CFLAGS=%CFLAGS% %cc_features%
+    ) else (
+        set RUSTFLAGS=-C target-feature=%features% -Z tune-cpu=%tune_cpu% %cfg%
+        set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
+    )
 ) else (
-    set RUSTFLAGS=-C target-feature=%features% -Z tune-cpu=%tune_cpu% %cfg%
-    set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
+    set RUSTFLAGS=%cfg%
 )
 
 maturin build --release
