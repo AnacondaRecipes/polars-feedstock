@@ -22,10 +22,8 @@ source:
     folder: polars-runtime-compat
 
 build:
-  number: 0
-  # Windows ARM64 builds fail in aws-lc-sys due to native ARM64 assembly compilation issues.
-  # This platform is not required for the Snowflake deliverables.
-  skip: true  # [py<310 or (win and arm64)]
+  number: 1
+  skip: true  # [py<310]
 
 requirements:
   host:
@@ -40,8 +38,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -84,8 +82,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -104,7 +102,7 @@ outputs:
       commands:
         - pip check
     about:
-      home: https://www.pola.rs
+      home: https://pola.rs
       license: MIT
       license_family: MIT
       license_file:
@@ -128,8 +126,8 @@ outputs:
     script: build_runtime.bat  # [win]
     requirements:
       build:
-        - {{ stdlib('c') }}  # [linux]
-        - {{ compiler('c') }}  # [linux]
+        - {{ stdlib('c') }}  # [linux or win]
+        - {{ compiler('c') }}  # [linux or win]
         - {{ compiler('cxx') }}  # [linux]
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
@@ -208,6 +206,11 @@ outputs:
     # ModuleNotFoundError: required package 'fastexcel' not found
     {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_spreadsheet.py" %}
 
+    # jax has no win-arm64 build; this module lazily imports it and is not
+    # deselected by the upstream `ci_only` marker (the pyproject.toml config is
+    # not copied into the conda test env).
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/ml/test_to_jax.py" %}  # [win and arm64]
+
     # Number of modules are missing like xlsx2csv, fastexcel, connectorx
     # ModuleNotFoundError: str_leven requires 'polars_ds' module to be installed
     {% set deselect_tests = "--deselect=gh/py-polars/tests/unit/io/cloud/test_credential_provider.py::test_credential_provider_rebuild_clears_cache" %} 
@@ -268,6 +271,9 @@ outputs:
     # Windows-specific subprocess initialization failure caused by the upstream
     # test replacing the inherited environment on Python 3.10.
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win and py==310]
+    # Windows opens text files with the locale encoding (cp1252), not UTF-8, and
+    # polars rejects a non-UTF-8 text-mode handle with "file encoding is not UTF-8".
+    {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/io/test_json.py::test_json_wrong_input_handle_textio" %}  # [win]
   
     test:
       source_files:
@@ -286,7 +292,7 @@ outputs:
         - orjson
         - altair
         - pytorch
-        - jax
+        - jax  # [not (win and arm64)]
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
