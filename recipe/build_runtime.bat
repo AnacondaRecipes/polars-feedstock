@@ -58,6 +58,12 @@ set "AWS_LC_SYS_NO_JITTER_ENTROPY=1"
 set "CMAKE_GENERATOR=Ninja"
 set "CC=clang-cl"
 set "CXX=clang-cl"
+@rem cmake-rs infers CMAKE_BUILD_TYPE from the Cargo profile. Polars ships
+@rem debug=line-tables-only, which selects RelWithDebInfo and makes CMake apply
+@rem MSVC_DEBUG_INFORMATION_FORMAT=ProgramDatabase to the clang-cl ASM sources,
+@rem which the assembler rejects. Disable debug info on win-arm64 so cmake-rs
+@rem picks Release (keeps the ARMv8 asm; only this platform loses line tables).
+set "CARGO_PROFILE_RELEASE_DEBUG=false"
 
 :after_arch_cfg
 maturin build --release
