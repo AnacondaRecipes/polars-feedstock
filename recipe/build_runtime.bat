@@ -6,6 +6,11 @@ copy %RECIPE_DIR%\cargo-auditable-wrapper.bat %BUILD_PREFIX%\Library\bin\cargo-a
 if %ERRORLEVEL% neq 0 exit 1
 set "CARGO=cargo-auditable-wrapper.bat"
 
+@rem The x86 SIMD -C target-feature / -Z tune-cpu flags below are invalid on
+@rem aarch64 and crash rustc (STATUS_ACCESS_VIOLATION compiling rayon-core).
+@rem Mirror build_runtime.sh: apply them only on x86_64.
+if "%target_platform%"=="win-arm64" goto :aarch64_cfg
+
 rem see https://github.com/pola-rs/polars/blob/main/.github/workflows/release-python.yml
 set COMPAT_TUNE_CPU=
 set COMPAT_FEATURES=+sse3,+ssse3,+sse4.1,+sse4.2,+popcnt,+cmpxchg16b
@@ -38,7 +43,14 @@ if "%tune_cpu%"=="" (
     set RUSTFLAGS=-C target-feature=%features% -Z tune-cpu=%tune_cpu% %cfg%
     set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
 )
+goto :after_arch_cfg
 
+:aarch64_cfg
+@rem aarch64: the x86 SIMD / -Z tune-cpu flags do not apply. Mirror
+@rem build_runtime.sh and leave RUSTFLAGS/CFLAGS as inherited (no extra flags,
+@rem no runtime-compat allocator cfg).
+
+:after_arch_cfg
 maturin build --release
 if %ERRORLEVEL% neq 0 exit %ERRORLEVEL%
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation --find-links=target\wheels
