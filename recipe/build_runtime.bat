@@ -47,13 +47,17 @@ goto :after_arch_cfg
 
 :aarch64_cfg
 @rem aarch64: skip the x86 SIMD / -Z tune-cpu flags (see build_runtime.sh).
-@rem aws-lc-sys ships ARM64 .S assembly that cl.exe cannot assemble, which
-@rem fails the link (LNK1181 on chacha-armv8.o). Its CMake builder selects the
-@rem ClangCL toolset for msvc/aarch64 (cmake_builder.rs configure_windows), so
-@rem clang-cl assembles the .S. Same conda pattern as snowflake-connector-python
-@rem and py-rattler. Jitterentropy intrinsics/atomics don't build here either.
+@rem aws-lc-sys ships ARM64 .S assembly that cl.exe cannot assemble (LNK1181
+@rem on chacha-armv8.o). Build it with CMake. The VS generator's ClangCL
+@rem toolset isn't installed on this worklet (MSB8020), so force Ninja: aws-lc
+@rem then skips the toolset and assembles .S with clang-cl directly. Jitter
+@rem entropy intrinsics/atomics don't build here either. Matches the conda
+@rem pattern used by snowflake-connector-python and py-rattler.
 set "AWS_LC_SYS_CMAKE_BUILDER=1"
 set "AWS_LC_SYS_NO_JITTER_ENTROPY=1"
+set "CMAKE_GENERATOR=Ninja"
+set "CC=clang-cl"
+set "CXX=clang-cl"
 
 :after_arch_cfg
 maturin build --release

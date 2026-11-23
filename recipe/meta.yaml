@@ -46,6 +46,7 @@ outputs:
         - cargo-bundle-licenses
         - cmake  # [win and arm64]
         - clang  # [win and arm64]
+        - ninja  # [win and arm64]
       host:
         - pip
         - python
@@ -92,6 +93,7 @@ outputs:
         - cargo-bundle-licenses
         - cmake  # [win and arm64]
         - clang  # [win and arm64]
+        - ninja  # [win and arm64]
       host:
         - pip
         - python
@@ -138,6 +140,7 @@ outputs:
         - cargo-bundle-licenses
         - cmake  # [win and arm64]
         - clang  # [win and arm64]
+        - ninja  # [win and arm64]
       host:
         - pip
         - python
