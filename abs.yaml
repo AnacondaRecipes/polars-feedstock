@@ -1,2 +1,7 @@
 # Windows takes absurd amount of time
 task_timeout: 86400
+
+# Opt into the experimental Python 3.15 variant. Gated in the aggregate
+# conda_build_config.yaml on ANACONDA_ROCKET_ENABLE_PY315 only.
+build_env_vars:
+  ANACONDA_ROCKET_ENABLE_PY315: yes
