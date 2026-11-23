@@ -6,6 +6,11 @@ copy %RECIPE_DIR%\cargo-auditable-wrapper.bat %BUILD_PREFIX%\Library\bin\cargo-a
 if %ERRORLEVEL% neq 0 exit 1
 set "CARGO=cargo-auditable-wrapper.bat"
 
+@rem The x86 SIMD -C target-feature / -Z tune-cpu flags below are invalid on
+@rem aarch64 and crash rustc (STATUS_ACCESS_VIOLATION compiling rayon-core).
+@rem Mirror build_runtime.sh: apply them only on x86_64.
+if "%target_platform%"=="win-arm64" goto :aarch64_cfg
+
 rem see https://github.com/pola-rs/polars/blob/main/.github/workflows/release-python.yml
 set COMPAT_TUNE_CPU=
 set COMPAT_FEATURES=+sse3,+ssse3,+sse4.1,+sse4.2,+popcnt,+cmpxchg16b
@@ -38,7 +43,29 @@ if "%tune_cpu%"=="" (
     set RUSTFLAGS=-C target-feature=%features% -Z tune-cpu=%tune_cpu% %cfg%
     set CFLAGS=%CFLAGS% %cc_features% -mtune=%tune_cpu%
 )
+goto :after_arch_cfg
 
+:aarch64_cfg
+@rem aarch64: skip the x86 SIMD / -Z tune-cpu flags (see build_runtime.sh).
+@rem aws-lc-sys ships ARM64 .S assembly that cl.exe cannot assemble (LNK1181
+@rem on chacha-armv8.o). Build it with CMake. The VS generator's ClangCL
+@rem toolset isn't installed on this worklet (MSB8020), so force Ninja: aws-lc
+@rem then skips the toolset and assembles .S with clang-cl directly. Jitter
+@rem entropy intrinsics/atomics don't build here either. Matches the conda
+@rem pattern used by snowflake-connector-python and py-rattler.
+set "AWS_LC_SYS_CMAKE_BUILDER=1"
+set "AWS_LC_SYS_NO_JITTER_ENTROPY=1"
+set "CMAKE_GENERATOR=Ninja"
+set "CC=clang-cl"
+set "CXX=clang-cl"
+@rem cmake-rs infers CMAKE_BUILD_TYPE from the Cargo profile. Polars ships
+@rem debug=line-tables-only, which selects RelWithDebInfo and makes CMake apply
+@rem MSVC_DEBUG_INFORMATION_FORMAT=ProgramDatabase to the clang-cl ASM sources,
+@rem which the assembler rejects. Disable debug info on win-arm64 so cmake-rs
+@rem picks Release (keeps the ARMv8 asm; only this platform loses line tables).
+set "CARGO_PROFILE_RELEASE_DEBUG=false"
+
+:after_arch_cfg
 maturin build --release
 if %ERRORLEVEL% neq 0 exit %ERRORLEVEL%
 %PYTHON% -m pip install . -vv --no-deps --no-build-isolation --find-links=target\wheels

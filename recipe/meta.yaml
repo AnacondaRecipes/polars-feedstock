@@ -22,7 +22,7 @@ source:
     folder: polars-runtime-compat
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<310]
 
 requirements:
@@ -44,6 +44,9 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        - cmake  # [win and arm64]
+        - clang  # [win and arm64]
+        - ninja-base  # [win and arm64]
       host:
         - pip
         - python
@@ -88,6 +91,9 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        - cmake  # [win and arm64]
+        - clang  # [win and arm64]
+        - ninja-base  # [win and arm64]
       host:
         - pip
         - python
@@ -132,6 +138,9 @@ outputs:
         - {{ compiler('rust-nightly') }}
         - cargo-auditable
         - cargo-bundle-licenses
+        - cmake  # [win and arm64]
+        - clang  # [win and arm64]
+        - ninja-base  # [win and arm64]
       host:
         - pip
         - python
@@ -286,6 +295,12 @@ outputs:
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/lazyframe/test_show_graph.py::test_show_graph_plan_stage_default_changed" %}
     # Test drops SystemRoot from subprocess env; breaks hash-randomization init on Windows py3.10
     {% set deselect_tests = deselect_tests + " --deselect=gh/py-polars/tests/unit/meta/test_polars_import.py::test_unknown_extension_type_behavior_invalid_does_not_panic_27004" %}  # [win]
+    # Python 3.15 is still experimental on pkgs/main: altair, jax and pylance
+    # (which provides the `lance` module) have no 3.15 builds yet, so skip the
+    # tests that import them.
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/operations/namespaces/test_plot.py" %}  # [py>=315]
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/ml/test_to_jax.py" %}  # [py>=315]
+    {% set ignore_tests = ignore_tests + " --ignore=gh/py-polars/tests/unit/io/test_lance.py" %}  # [py>=315]
     test:
       source_files:
         - gh/py-polars/tests
@@ -302,12 +317,12 @@ outputs:
         - pip
         - pytest
         - pytz
-        - flask
+        - flask  # [py<315]
         - flask-cors
         - orjson
-        - altair
+        - altair  # [py<315]
         - pytorch
-        - jax
+        - jax  # [py<315]
         - hypothesis >=6.97.4
         - polars-runtime-32 =={{ version }}
         - pyarrow
@@ -324,7 +339,7 @@ outputs:
         - gevent
         - openpyxl >=3.0.0
         - pandas
-        - hvplot >=0.9.1
+        - hvplot >=0.9.1  # [py<315]
         - pyarrow >=7.0.0
         - pydantic >=2.0.0
         - pyxlsb >=1.0  # [py<312]
@@ -333,7 +348,7 @@ outputs:
         - tzdata  # [win]
         - xlsxwriter
         - aiosqlite
-        - pylance
+        - pylance  # [py<315]
         - lancedb
 
 about:
