@@ -46,9 +46,14 @@ if "%tune_cpu%"=="" (
 goto :after_arch_cfg
 
 :aarch64_cfg
-@rem aarch64: the x86 SIMD / -Z tune-cpu flags do not apply. Mirror
-@rem build_runtime.sh and leave RUSTFLAGS/CFLAGS as inherited (no extra flags,
-@rem no runtime-compat allocator cfg).
+@rem aarch64: skip the x86 SIMD / -Z tune-cpu flags (see build_runtime.sh).
+@rem aws-lc-sys ships ARM64 .S assembly that cl.exe cannot assemble, which
+@rem fails the link (LNK1181 on chacha-armv8.o). Its CMake builder selects the
+@rem ClangCL toolset for msvc/aarch64 (cmake_builder.rs configure_windows), so
+@rem clang-cl assembles the .S. Same conda pattern as snowflake-connector-python
+@rem and py-rattler. Jitterentropy intrinsics/atomics don't build here either.
+set "AWS_LC_SYS_CMAKE_BUILDER=1"
+set "AWS_LC_SYS_NO_JITTER_ENTROPY=1"
 
 :after_arch_cfg
 maturin build --release
